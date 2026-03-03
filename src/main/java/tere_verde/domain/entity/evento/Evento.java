@@ -1,4 +1,4 @@
-package tere_verde.domain.evento;
+package tere_verde.domain.entity.evento;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;

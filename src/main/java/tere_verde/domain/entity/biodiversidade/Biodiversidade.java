@@ -1,10 +1,21 @@
-package tere_verde.domain.biodiversidade;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.persistence.*;
+package tere_verde.domain.entity.biodiversidade;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import jakarta.persistence.CollectionTable;
+import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Table;
 
 @Entity(name = "Biodiversidade")
 @Table(name = "biodiversidades")
@@ -25,7 +36,7 @@ public class Biodiversidade {
             joinColumns = @JoinColumn(name = "biodiversidade_id"))
     @Column(name = "imagem", columnDefinition = "TEXT")
     @JsonProperty("imagem")
-    private List<String> imagens = new ArrayList<>();;
+    private List<String> imagens = new ArrayList<>();
 
     @Enumerated(EnumType.STRING)
     private Classificacao classificacao;

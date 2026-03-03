@@ -1,4 +1,4 @@
-package tere_verde.domain.trilha;
+package tere_verde.domain.entity.trilha;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;

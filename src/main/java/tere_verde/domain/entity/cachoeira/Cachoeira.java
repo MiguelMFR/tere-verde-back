@@ -1,9 +1,21 @@
-package tere_verde.domain.cachoeira;
+package tere_verde.domain.entity.cachoeira;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import jakarta.persistence.CollectionTable;
+import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Table;
 
 @Entity(name = "Cachoeira")
 @Table(name = "cachoeiras")
@@ -92,9 +104,6 @@ public class Cachoeira {
         this.descricao = descricao;
     }
 
-
-
-
     public Boolean getDestaque() {
         return destaque;
     }
@@ -107,7 +116,7 @@ public class Cachoeira {
         return imagens;
     }
 
-    public void setImagens(ArrayList<String> imagens) {
+    public void setImagens(List<String> imagens) {
         this.imagens = imagens;
     }
 }

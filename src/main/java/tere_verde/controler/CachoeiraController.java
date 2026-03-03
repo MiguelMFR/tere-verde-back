@@ -1,15 +1,23 @@
 package tere_verde.controler;
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-import tere_verde.domain.cachoeira.Cachoeira;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import jakarta.validation.Valid;
+import tere_verde.domain.dto.cachoeira.CachoeiraDTO;
+import tere_verde.domain.entity.cachoeira.Cachoeira;
 import tere_verde.repository.CachoeiraRepository;
-
-
-import java.io.IOException;
-import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/cachoeira")
@@ -19,34 +27,41 @@ public class CachoeiraController {
     private CachoeiraRepository cachoeiraRepository;
 
     @PostMapping
-    public ResponseEntity<Cachoeira> criarCachoeira(@RequestBody Cachoeira cachoeira) {
-        Cachoeira novaCachoeira = cachoeiraRepository.save(cachoeira);
-        return new ResponseEntity<>(novaCachoeira, HttpStatus.CREATED);
+    public ResponseEntity<CachoeiraDTO> criarCachoeira(@RequestBody @Valid CachoeiraDTO cachoeira) {
+        Cachoeira novaCachoeira = cachoeiraRepository.save(cachoeira.toEntity());
+        CachoeiraDTO cachoeiraDTO = CachoeiraDTO.toDTO(novaCachoeira);
+        return new ResponseEntity<>(cachoeiraDTO, HttpStatus.CREATED);
     }
 
     @GetMapping()
-    public ResponseEntity<List<Cachoeira>> listarCachoeiras() {
+    public ResponseEntity<List<CachoeiraDTO>> listarCachoeiras() {
         List<Cachoeira> cachoeiras = cachoeiraRepository.findAll();
-        return new ResponseEntity<>(cachoeiras, HttpStatus.OK);
+        List<CachoeiraDTO> cachoeiraDTOs = cachoeiras.stream()
+            .map(CachoeiraDTO::toDTO)
+            .toList();
+        return new ResponseEntity<>(cachoeiraDTOs, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Cachoeira> buscarCachoeiraPorId(@PathVariable Long id) {
+    public ResponseEntity<CachoeiraDTO> buscarCachoeiraPorId(@PathVariable Long id) {
         Optional<Cachoeira> cachoeira = cachoeiraRepository.findById(id);
-        return cachoeira.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
+        return cachoeira.map(c -> ResponseEntity.ok(CachoeiraDTO.toDTO(c)))
+                    .orElse(ResponseEntity.notFound().build());
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Cachoeira> atualizarCachoeira(@PathVariable Long id, @RequestBody Cachoeira cachoeira) {
-
+    public ResponseEntity<CachoeiraDTO> atualizarCachoeira(@PathVariable Long id, @RequestBody @Valid CachoeiraDTO cachoeira) {
+        
         if (!cachoeiraRepository.existsById(id)) {
             return ResponseEntity.notFound().build();
         }
 
-        cachoeira.setId(id);
-        Cachoeira atualizado = cachoeiraRepository.save(cachoeira);
+        Cachoeira cachoeiraAtualizada = cachoeira.toEntity();
+        cachoeiraAtualizada.setId(id);
+        Cachoeira cachoeiraSalva = cachoeiraRepository.save(cachoeiraAtualizada);
+        CachoeiraDTO cachoeiraDTO = CachoeiraDTO.toDTO(cachoeiraSalva);
 
-        return ResponseEntity.ok(atualizado);
+        return ResponseEntity.ok(cachoeiraDTO);
     }
 
     @DeleteMapping("/{id}")

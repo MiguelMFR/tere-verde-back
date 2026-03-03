@@ -1,7 +1,7 @@
 package tere_verde.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import tere_verde.domain.trilha.Trilha;
+import tere_verde.domain.entity.trilha.Trilha;
 
 public interface TrilhaRepository extends JpaRepository<Trilha, Long> {
     

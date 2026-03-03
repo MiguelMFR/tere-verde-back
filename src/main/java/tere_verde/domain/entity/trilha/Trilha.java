@@ -1,8 +1,7 @@
 package tere_verde.domain.trilha;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
-
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity(name = "Trilha")
@@ -13,6 +12,7 @@ public class Trilha {
     private Long id;
 
     private String nome;
+    @Column(columnDefinition = "TEXT")
     private String descricao;
     private String distancia; 
     private String duracao; 
@@ -26,8 +26,9 @@ public class Trilha {
     @ElementCollection
     @CollectionTable(name = "trilha_imagens",
             joinColumns = @JoinColumn(name = "trilha_id"))
-    @Column(name = "imagem")
-    private List<String> imagens = new ArrayList<>();
+    @Column(name = "imagem", columnDefinition = "TEXT")
+    @JsonProperty("imagem")
+    private List<String> imagens;
 
     public Trilha() {}
 

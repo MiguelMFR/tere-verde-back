@@ -3,7 +3,7 @@ package tere_verde.domain.biodiversidade;
 public enum Classificacao {
     AVE("ave"),
     MAMIFERO("mamifero"),
-    PLANTA("planta");
+    FLORA("planta");
 
     private final String nome;
 

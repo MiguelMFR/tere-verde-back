@@ -16,13 +16,14 @@ public class Biodiversidade {
 
     private String nome;
     private String especie;
+    @Column(columnDefinition = "TEXT")
     private String descricao;
     private String habitat;
 
     @ElementCollection
     @CollectionTable(name = "biodiversidade_imagens",
             joinColumns = @JoinColumn(name = "biodiversidade_id"))
-    @Column(name = "imagem")
+    @Column(name = "imagem", columnDefinition = "TEXT")
     @JsonProperty("imagem")
     private List<String> imagens = new ArrayList<>();;
 

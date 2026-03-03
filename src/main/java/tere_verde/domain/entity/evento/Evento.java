@@ -1,5 +1,6 @@
 package tere_verde.domain.evento;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -13,12 +14,14 @@ public class Evento {
     private Long id;
 
     private String nome;
+    @Column(columnDefinition = "TEXT")
     private String descricao;
 
     @ElementCollection
     @CollectionTable(name = "evento_imagens",
             joinColumns = @JoinColumn(name = "evento_id"))
-    @Column(name = "imagem")
+    @Column(name = "imagem", columnDefinition = "TEXT")
+    @JsonProperty("imagem")
     private List<String> imagens = new ArrayList<>();;
     
     private Boolean destaque;

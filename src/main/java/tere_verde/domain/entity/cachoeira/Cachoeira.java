@@ -1,5 +1,6 @@
 package tere_verde.domain.cachoeira;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,25 +18,28 @@ public class Cachoeira {
     private DificuldadeAcesso dificuldadeAcesso;
     
     private String alturaQueda;
+    @Column(columnDefinition = "TEXT")
     private String descricao;
-    private Boolean possuiPsicina;
+
+    private Boolean possuiPiscina;
     private Boolean destaque;
 
     @ElementCollection
     @CollectionTable(name = "cachoeira_imagens",
             joinColumns = @JoinColumn(name = "cachoeira_id"))
-    @Column(name = "imagem")
+    @Column(name = "imagem", columnDefinition = "TEXT")
+    @JsonProperty("imagem")
     private List<String> imagens = new ArrayList<>();;
 
     public Cachoeira() {}
 
     public Cachoeira(String nome, DificuldadeAcesso dificuldadeAcesso, String alturaQueda, 
-                     String descricao, Boolean possuiPsicina, Boolean destaque, ArrayList<String> imagens) {
+                     String descricao, Boolean possuiPiscina, Boolean destaque, ArrayList<String> imagens) {
         this.nome = nome;
         this.dificuldadeAcesso = dificuldadeAcesso;
         this.alturaQueda = alturaQueda;
         this.descricao = descricao;
-        this.possuiPsicina = possuiPsicina;
+        this.possuiPiscina = possuiPiscina;
         this.destaque = destaque;
         this.imagens = imagens;
     }
@@ -64,6 +68,14 @@ public class Cachoeira {
         this.dificuldadeAcesso = dificuldadeAcesso;
     }
 
+    public Boolean getPossuiPiscina() {
+        return possuiPiscina;
+    }
+
+    public void setPossuiPiscina(Boolean possuiPiscina) {
+        this.possuiPiscina = possuiPiscina;
+    }
+
     public String getAlturaQueda() {
         return alturaQueda;
     }
@@ -80,13 +92,8 @@ public class Cachoeira {
         this.descricao = descricao;
     }
 
-    public Boolean getPossuiPsicina() {
-        return possuiPsicina;
-    }
 
-    public void setPossuiPsicina(Boolean possuiPsicina) {
-        this.possuiPsicina = possuiPsicina;
-    }
+
 
     public Boolean getDestaque() {
         return destaque;

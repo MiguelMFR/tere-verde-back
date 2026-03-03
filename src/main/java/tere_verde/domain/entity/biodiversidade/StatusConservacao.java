@@ -3,7 +3,8 @@ package tere_verde.domain.biodiversidade;
 public enum StatusConservacao {
     VULNERAVEL("vulneravel"),
     POUCO_PREOCUPANTE("pouco_preocupante"),
-    QUASE_AMEACADO("quase_ameacado");
+    EM_PERIGO("em_perigo"),
+    CRITICA( "critica");
 
     private final String nome;
 

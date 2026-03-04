@@ -30,9 +30,6 @@ public record EventoDTO(
     ) {
 
     public Evento toEntity() {
-        if (this.tipo() != null) {
-            TipoEvento.isValid(this.tipo.toString());
-        }
         Evento evento = new Evento();
         evento.setId(this.id);
         evento.setNome(this.nome);

@@ -32,6 +32,7 @@ public class Cachoeira {
     private String alturaQueda;
     @Column(columnDefinition = "TEXT")
     private String descricao;
+    private String local;
 
     private Boolean possuiPiscina;
     private Boolean destaque;
@@ -46,11 +47,12 @@ public class Cachoeira {
     public Cachoeira() {}
 
     public Cachoeira(String nome, DificuldadeAcesso dificuldadeAcesso, String alturaQueda, 
-                     String descricao, Boolean possuiPiscina, Boolean destaque, ArrayList<String> imagens) {
+                     String descricao, String local, Boolean possuiPiscina, Boolean destaque, ArrayList<String> imagens) {
         this.nome = nome;
         this.dificuldadeAcesso = dificuldadeAcesso;
         this.alturaQueda = alturaQueda;
         this.descricao = descricao;
+        this.local = local;
         this.possuiPiscina = possuiPiscina;
         this.destaque = destaque;
         this.imagens = imagens;
@@ -118,5 +120,13 @@ public class Cachoeira {
 
     public void setImagens(List<String> imagens) {
         this.imagens = imagens;
+    }
+
+    public String getLocal() {
+        return local;
+    }
+
+    public void setLocal(String local) {
+        this.local = local;
     }
 }

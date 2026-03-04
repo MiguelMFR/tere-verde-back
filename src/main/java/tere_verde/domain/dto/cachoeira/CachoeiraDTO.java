@@ -16,6 +16,8 @@ public record CachoeiraDTO(
     String alturaQueda,
     @NotBlank(message = "A descrição é obrigatória")
     String descricao,
+    @NotBlank(message = "O local é obrigatório")
+    String local,
     @NotNull(message = "A informação sobre possuir piscina é obrigatória")
     Boolean possuiPiscina,
     @NotNull(message = "A informação sobre destaque é obrigatória")
@@ -33,6 +35,7 @@ public record CachoeiraDTO(
         cachoeira.setDescricao(this.descricao);
         cachoeira.setPossuiPiscina(this.possuiPiscina);
         cachoeira.setDestaque(this.destaque);
+        cachoeira.setLocal(this.local);
         cachoeira.setImagens(this.imagens);
         return cachoeira;
     }
@@ -44,6 +47,7 @@ public record CachoeiraDTO(
             cachoeira.getDificuldadeAcesso(),
             cachoeira.getAlturaQueda(),
             cachoeira.getDescricao(),
+            cachoeira.getLocal(),
             cachoeira.getPossuiPiscina(),
             cachoeira.getDestaque(),
             cachoeira.getImagens()
